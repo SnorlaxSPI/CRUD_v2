@@ -1,9 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
+import './database/connect.js';
+
 dotenv.config();
 
 const varEnv = process.env.NODE_PORT;
+
 
 import bodyParser from 'body-parser';
 import { log } from './middlewares/log.js';
