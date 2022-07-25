@@ -1,18 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
-import './database/connect.js';
-
-dotenv.config();
-
-const varEnv = process.env.NODE_PORT;
-
-
 import bodyParser from 'body-parser';
+
 import { log } from './middlewares/log.js';
 import { router } from './routes/routes.js';
 
+dotenv.config();
+
+import './database/connect.js';
+
 const port = process.env.NODE_PORT;
+const varEnv = process.env.NODE_PORT;
 
 const app = express();
 

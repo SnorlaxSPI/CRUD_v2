@@ -3,17 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 const clients = [];
 
 export default {
-  post_controller(request, response) {
+  post_controller(request, response) { 
     const { name, phone } = request.body;
-  
+
     const client = {
-      id: uuidv4(),
+    id: uuidv4(),
       name,
       phone,
     }
     
     clients.push(client);
-    
   
     response.status(201).json(clients);
     console.log(`ID inserido com sucesso ${client.id}`);
