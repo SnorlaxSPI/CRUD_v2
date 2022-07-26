@@ -6,10 +6,17 @@ const clients = [];
 const prisma = new PrismaClient();
 
 export default {
-  async post_controller(request, response) { 
+  async post_controller(request, response) {
+
     const { name, phone } = request.body;
 
-    const user = await prisma.user.create({
+    let user = await prisma.user.findFirst({ where: { phone } });
+
+    if (user) {
+      return response.json({ error: 'Já existe um usuário com este telefone'});
+    }
+
+    user = await prisma.user.create({
       data: {
         id: uuidv4(),
         name, 
@@ -17,23 +24,14 @@ export default {
       },
     });
 
-    return response.status(201).json(user);
-    //response.status(201).json(user);
+  response.status(201).json(user);
+  console.log(`ID inserido com sucesso ${user.id}`);
+},
 
-    //const client = {
-    //id: uuidv4(),
-    //  name,
-    //  phone,
-    //}
-    
-    //clients.push(client);
-  
-    //response.status(201).json(clients);
-    //console.log(`ID inserido com sucesso ${client.id}`);
-  },
+  async get_controller(request, response) {
+    const user = await prisma.user.find({ phone });
 
-  get_controller(request, response) {
-    response.status(200).json(clients);
+    response.status(200).json(user);
   },
 
   put_controller(request, response) {
