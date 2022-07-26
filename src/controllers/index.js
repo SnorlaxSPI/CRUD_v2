@@ -29,7 +29,7 @@ export default {
 },
 
   async get_controller(request, response) {
-    const user = await prisma.user.find({ phone });
+    const user = await prisma.user.findMany();
 
     response.status(200).json(user);
   },
