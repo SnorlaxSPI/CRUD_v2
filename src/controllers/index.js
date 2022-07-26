@@ -1,21 +1,35 @@
 import { v4 as uuidv4 } from 'uuid';
+import { PrismaClient } from '@prisma/client';
 
 const clients = [];
 
+const prisma = new PrismaClient();
+
 export default {
-  post_controller(request, response) { 
+  async post_controller(request, response) { 
     const { name, phone } = request.body;
 
-    const client = {
-    id: uuidv4(),
-      name,
-      phone,
-    }
+    const user = await prisma.user.create({
+      data: {
+        id: uuidv4(),
+        name, 
+        phone,
+      },
+    });
+
+    return response.status(201).json(user);
+    //response.status(201).json(user);
+
+    //const client = {
+    //id: uuidv4(),
+    //  name,
+    //  phone,
+    //}
     
-    clients.push(client);
+    //clients.push(client);
   
-    response.status(201).json(clients);
-    console.log(`ID inserido com sucesso ${client.id}`);
+    //response.status(201).json(clients);
+    //console.log(`ID inserido com sucesso ${client.id}`);
   },
 
   get_controller(request, response) {
