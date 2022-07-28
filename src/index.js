@@ -9,9 +9,6 @@ dotenv.config();
 
 import './database/connect.js';
 
-const port = process.env.NODE_PORT;
-const varEnv = process.env.NODE_PORT;
-
 const app = express();
 
 // o app.use na verdade está injetando um middleware
